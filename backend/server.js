@@ -14,6 +14,8 @@ const shopSearchRouter = require("./routes/shop/search-routes");
 const shopReviewRouter = require("./routes/shop/review-routes");
 
 const commonFeatureRouter = require("./routes/common/feature-routes");
+const User = require('./models/User'); 
+
 
 //create a database connection -> u can also
 //create a separate file for this and then import/use that file here
@@ -55,5 +57,16 @@ app.use("/api/shop/search", shopSearchRouter);
 app.use("/api/shop/review", shopReviewRouter);
 
 app.use("/api/common/feature", commonFeatureRouter);
+
+User.updateOne(
+  { email: "tejashsinghrajput@gmail.cm" },
+  { $set: { isAdmin: true } }
+)
+.then(result => {
+  console.log('User updated successfully:', result);
+})
+.catch(err => {
+  console.error('Error updating user:', err);
+});
 
 app.listen(PORT, () => console.log(`Server is now running on port ${PORT}`));
